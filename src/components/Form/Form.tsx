@@ -3,28 +3,36 @@ import { UseFormReturnType } from "@mantine/form";
 import { ReactNode } from "react";
 import { JokerForm } from "../../types/jokerForm";
 import { GsmForm } from "../../types/gsmForm";
+import { useDisclosure } from "@mantine/hooks";
+import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
 
 interface FormProps {
-  title: string;
   form: UseFormReturnType<JokerForm> | UseFormReturnType<GsmForm>;
+  title?: string;
   submit: any;
   children: ReactNode;
 }
 
-export function Form({ title, form, submit, children }: FormProps) {
+export function Form({ form, submit, children }: FormProps) {
+  const [opened, { open, close }] = useDisclosure(false);
+
   return (
-    <form onSubmit={form.onSubmit(() => submit())}>
-      <Title order={1} align="center">
-        {title}
-      </Title>
+    <>
+      <form>
+        {children}
 
-      {children}
+        <Flex mt={16} justify="center">
+          <Button onClick={open} fullWidth>
+            SALVAR
+          </Button>
+        </Flex>
 
-      <Flex mt={16} justify="center">
-        <Button type="submit" fullWidth>
-          SALVAR
-        </Button>
-      </Flex>
-    </form>
+        <ConfirmationModal
+          opened={opened}
+          close={close}
+          confirmation={form.onSubmit(() => submit())}
+        />
+      </form>
+    </>
   );
 }
