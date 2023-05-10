@@ -1,4 +1,4 @@
-import { Button, Flex, Title } from "@mantine/core";
+import { Button, Flex } from "@mantine/core";
 import { UseFormReturnType } from "@mantine/form";
 import { ReactNode } from "react";
 import { JokerForm } from "../../types/jokerForm";
@@ -16,13 +16,18 @@ interface FormProps {
 export function Form({ form, submit, children }: FormProps) {
   const [opened, { open, close }] = useDisclosure(false);
 
+  function handleSave() {
+    const { hasErrors } = form.validate();
+    hasErrors ? null : open();
+  }
+
   return (
     <>
       <form>
         {children}
 
         <Flex mt={16} justify="center">
-          <Button onClick={open} fullWidth>
+          <Button onClick={handleSave} fullWidth>
             SALVAR
           </Button>
         </Flex>
