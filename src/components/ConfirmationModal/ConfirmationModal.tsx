@@ -28,6 +28,7 @@ export function ConfirmationModal({
         >
           Sim
         </Button>
+
         <Button color="red" onClick={close}>
           Não
         </Button>

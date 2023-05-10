@@ -1,10 +1,22 @@
-import { Grid, NumberInput, Switch, TextInput, Title } from "@mantine/core";
+import {
+  Flex,
+  Grid,
+  NumberInput,
+  PasswordInput,
+  Stack,
+  Switch,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { Form } from "../../components/Form/Form";
 import { useEffect } from "react";
 import { getConfig } from "../../services/config";
-import { useForm } from "@mantine/form";
+import { isNotEmpty, useForm } from "@mantine/form";
+import { useStyles } from "../../components/Form/styles";
 
 export function Gsm() {
+  const { classes } = useStyles();
+
   const form = useForm({
     initialValues: {
       enable: false,
@@ -26,6 +38,12 @@ export function Gsm() {
         baudrate: 0,
       },
     },
+
+    validate: {
+      apn: isNotEmpty("Type something"),
+      username: isNotEmpty("Type something"),
+      password: isNotEmpty("Type something"),
+    },
   });
 
   async function fetchConfig() {
@@ -39,53 +57,133 @@ export function Gsm() {
   }, []);
 
   return (
-    <Form title="GSM" form={form} submit={() => {}}>
-      <Switch onLabel="ON" offLabel="OFF" size="md" />
-      <TextInput label="APN" withAsterisk />
-      <TextInput label="Username" withAsterisk />
-      <TextInput label="Password" withAsterisk />
+    <Form form={form} submit={() => alert(JSON.stringify(form.values))}>
+      <Flex align="center" justify="center" gap={16} mb={32}>
+        <Title order={1} align="center">
+          GSM
+        </Title>
+        <Switch
+          onLabel="ON"
+          offLabel="OFF"
+          size="md"
+          checked={form.values.enable}
+          onChange={(event) => {
+            form.setFieldValue("enable", event.currentTarget.checked);
+          }}
+          error={form.errors["enable"]}
+        />
+      </Flex>
 
-      <div>
+      <TextInput
+        label="APN"
+        withAsterisk
+        mb={4}
+        {...form.getInputProps("apn")}
+      />
+      <TextInput
+        label="Username"
+        withAsterisk
+        mb={4}
+        {...form.getInputProps("username")}
+      />
+      <PasswordInput
+        label="Password"
+        withAsterisk
+        mb={4}
+        {...form.getInputProps("password")}
+      />
+
+      <Stack my={16}>
         <Title order={4}>SIM800</Title>
-        <Grid gutter="lg" m={0}>
-          <Grid.Col md={4} sm={6} xs={12}>
-            <NumberInput defaultValue={0} label="Tx" min={0} withAsterisk />
-          </Grid.Col>
-          <Grid.Col md={4} sm={6} xs={12}>
-            <NumberInput defaultValue={0} label="Rx" min={0} withAsterisk />
-          </Grid.Col>
-          <Grid.Col md={4} sm={6} xs={12}>
-            <NumberInput defaultValue={0} label="UART" min={0} withAsterisk />
-          </Grid.Col>
-          <Grid.Col md={4} sm={6} xs={12}>
-            <NumberInput
-              defaultValue={0}
-              label="Timeout"
-              min={0}
-              withAsterisk
-            />
-          </Grid.Col>
-          <Grid.Col md={4} sm={6} xs={12}>
-            <NumberInput
-              defaultValue={0}
-              label="Baudrate"
-              min={0}
-              withAsterisk
-            />
-          </Grid.Col>
-        </Grid>
-      </div>
+        <Flex gap={16} wrap="wrap">
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Tx"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim800.tx")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Rx"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim800.rx")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="UART"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim800.uart")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Timeout"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim800.timeout")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Baudrate"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim800.baudrate")}
+          />
+        </Flex>
+      </Stack>
 
-      <div>
+      <Stack>
         <Title order={4}>SIM7020E</Title>
-        <div>
-          <NumberInput defaultValue={0} label="Tx" min={0} withAsterisk />
-          <NumberInput defaultValue={0} label="Rx" min={0} withAsterisk />
-          <NumberInput defaultValue={0} label="UART" min={0} withAsterisk />
-          <NumberInput defaultValue={0} label="Timeout" min={0} withAsterisk />
-          <NumberInput defaultValue={0} label="Baudrate" min={0} withAsterisk />
-        </div>
-      </div>
+        <Flex gap={16} wrap="wrap">
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Tx"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim7020e.tx")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Rx"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim7020e.rx")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="UART"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim7020e.uart")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Timeout"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim7020e.timeout")}
+          />
+          <NumberInput
+            className={classes.smallInput}
+            defaultValue={0}
+            label="Baudrate"
+            min={0}
+            withAsterisk
+            {...form.getInputProps("sim7020e.baudrate")}
+          />
+        </Flex>
+      </Stack>
     </Form>
   );
 }

@@ -29,7 +29,7 @@ export function Joker() {
         ntp2: isNotEmpty("Type something"),
         ntp3: isNotEmpty("Type something"),
       },
-      timezone: isInRange({ min: -11, max: 12 }, "Type a valide Timezone"),
+      timezone: isInRange({ min: -11, max: 12 }, "Type a valid Timezone"),
     },
   });
 
