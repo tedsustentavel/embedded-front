@@ -6,7 +6,11 @@ import PrivateRoute from "./PrivateRoute";
 import { AnonymousRoute } from "./AnonymousRoute";
 import { NoMatch } from "../pages/NoMatch/NoMatch";
 import { SignUp } from "../pages/SignUp/SignUp";
-import { Test } from "../pages/Test/Test";
+import { Joker } from "../pages/Joker/Joker";
+import { Gsm } from "../pages/Gsm/Gsm";
+import { Wifi } from "../pages/Wifi/Wifi";
+import { Fichario } from "../pages/Fichario/Fichario";
+import { Sensor } from "../pages/Sensor/Sensor";
 
 export default function App() {
   return (
@@ -43,7 +47,11 @@ export default function App() {
         }
       >
         <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/joker" element={<Joker />} />
+        <Route path="/gsm" element={<Gsm />} />
+        <Route path="/wifi" element={<Wifi />} />
+        <Route path="/fichario" element={<Fichario />} />
+        <Route path="/sensor" element={<Sensor />} />
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

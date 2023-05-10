@@ -6,31 +6,26 @@ import {
   Switch,
   useMantineTheme,
   useMantineColorScheme,
-  MediaQuery,
 } from "@mantine/core";
 import {
-  IconBellRinging,
-  IconFingerprint,
-  IconKey,
-  IconSettings,
-  Icon2fa,
-  IconDatabaseImport,
-  IconReceipt2,
-  IconSwitchHorizontal,
+  IconBuildingCircus,
+  IconAntennaBars5,
+  IconWifi,
+  IconNotebook,
+  IconDeviceHeartMonitor,
   IconLogout,
   IconSun,
   IconMoonStars,
 } from "@tabler/icons-react";
 import { useStyles } from "./styles";
+import { Link } from "react-router-dom";
 
 const data = [
-  { link: "", label: "Notifications", icon: IconBellRinging },
-  { link: "", label: "Billing", icon: IconReceipt2 },
-  { link: "", label: "Security", icon: IconFingerprint },
-  { link: "", label: "SSH Keys", icon: IconKey },
-  { link: "", label: "Databases", icon: IconDatabaseImport },
-  { link: "", label: "Authentication", icon: Icon2fa },
-  { link: "", label: "Other Settings", icon: IconSettings },
+  { link: "/joker", label: "Joker", icon: IconBuildingCircus },
+  { link: "/gsm", label: "GSM", icon: IconAntennaBars5 },
+  { link: "/wifi", label: "Wi-Fi", icon: IconWifi },
+  { link: "/fichario", label: "Fichario", icon: IconNotebook },
+  { link: "/sensor", label: "Sensor", icon: IconDeviceHeartMonitor },
 ];
 
 export function Sidebar() {
@@ -40,24 +35,22 @@ export function Sidebar() {
   const theme = useMantineTheme();
 
   const links = data.map((item) => (
-    <a
+    <Link
       className={cx(classes.link, {
         [classes.linkActive]: item.label === active,
       })}
-      href={item.link}
+      to={item.link}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
+      onClick={() => {
         setActive(item.label);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </Link>
   ));
 
   return (
-    // <MediaQuery smallerThan="sm" styles={{ display: "none!important" }}>
     <Navbar height={700} width={{ sm: 250 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
@@ -68,15 +61,6 @@ export function Sidebar() {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
         <a
           href="#"
           className={classes.link}
@@ -103,6 +87,5 @@ export function Sidebar() {
         />
       </Group>
     </Navbar>
-    // </MediaQuery>
   );
 }
