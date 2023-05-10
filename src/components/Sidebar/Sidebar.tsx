@@ -18,7 +18,7 @@ import {
   IconMoonStars,
 } from "@tabler/icons-react";
 import { useStyles } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const data = [
   { link: "/joker", label: "Joker", icon: IconBuildingCircus },
@@ -29,20 +29,21 @@ const data = [
 ];
 
 export function Sidebar() {
+  const { pathname } = useLocation();
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Billing");
+  const [active, setActive] = useState(pathname);
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
 
   const links = data.map((item) => (
     <Link
       className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
+        [classes.linkActive]: item.link === active,
       })}
       to={item.link}
       key={item.label}
       onClick={() => {
-        setActive(item.label);
+        setActive(item.link);
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
