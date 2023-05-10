@@ -5,9 +5,17 @@ import { JokerForm } from "../../types/jokerForm";
 import { GsmForm } from "../../types/gsmForm";
 import { useDisclosure } from "@mantine/hooks";
 import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
+import { WifiForm } from "../../types/wifiForm";
+import { FicharioForm } from "../../types/ficharioForm";
+import { SensorForm } from "../../types/sensorForm";
 
 interface FormProps {
-  form: UseFormReturnType<JokerForm> | UseFormReturnType<GsmForm>;
+  form:
+    | UseFormReturnType<JokerForm>
+    | UseFormReturnType<GsmForm>
+    | UseFormReturnType<WifiForm>
+    | UseFormReturnType<FicharioForm>
+    | UseFormReturnType<SensorForm>;
   title?: string;
   submit: any;
   children: ReactNode;
@@ -18,6 +26,7 @@ export function Form({ form, submit, children }: FormProps) {
 
   function handleSave() {
     const { hasErrors } = form.validate();
+    console.log(form.validate());
     hasErrors ? null : open();
   }
 
