@@ -26,7 +26,7 @@ export function Login() {
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: (value) =>
-        value.length <= 6
+        value.length < 6
           ? "Password should include at least 6 characters"
           : null,
     },

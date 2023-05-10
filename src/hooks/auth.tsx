@@ -30,13 +30,14 @@ function AuthProvider({
 
   function signIn(email: string, password: string) {
     setLoading(true);
+    localStorage.setItem("@webserver-user", JSON.stringify(email));
+    setUser({ username: email });
     // .then((userCredential) => {
     //     const userEmail = userCredential.user.email
     //       ? userCredential.user.email
     //       : '';
 
     //     userCredential.user.getIdToken().then((token) => {
-    //       const authUser = { email: userEmail, accessToken: token };
     //       setUser(authUser);
     //       localStorage.setItem('@webserver-user', JSON.stringify(authUser));
     //     });
@@ -52,6 +53,8 @@ function AuthProvider({
   }
 
   function signOut() {
+    localStorage.removeItem("@mangoes-user");
+    setUser(null);
     // .then(() => {
     //   localStorage.removeItem('@mangoes-user');
     //   setUser(null);

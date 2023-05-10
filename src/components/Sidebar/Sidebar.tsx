@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Navbar,
   Group,
@@ -19,6 +19,7 @@ import {
 } from "@tabler/icons-react";
 import { useStyles } from "./styles";
 import { Link, useLocation } from "react-router-dom";
+import { AuthContext, AuthContextType } from "../../hooks/auth";
 
 const data = [
   { link: "/joker", label: "Joker", icon: IconBuildingCircus },
@@ -29,6 +30,7 @@ const data = [
 ];
 
 export function Sidebar() {
+  const { signOut } = useContext(AuthContext) as AuthContextType;
   const { pathname } = useLocation();
   const { classes, cx } = useStyles();
   const [active, setActive] = useState(pathname);
@@ -65,7 +67,10 @@ export function Sidebar() {
         <a
           href="#"
           className={classes.link}
-          onClick={(event) => event.preventDefault()}
+          onClick={(event) => {
+            event.preventDefault();
+            signOut();
+          }}
         >
           <IconLogout className={classes.linkIcon} stroke={1.5} />
           <span>Logout</span>

@@ -32,18 +32,10 @@ export default function App() {
         }
       />
       <Route
-        path="/"
         element={
-          <AnonymousRoute>
+          <PrivateRoute>
             <Layout />
-          </AnonymousRoute>
-        }
-      />
-      <Route
-        element={
-          <AnonymousRoute>
-            <Layout />
-          </AnonymousRoute>
+          </PrivateRoute>
         }
       >
         <Route path="/" element={<Home />} />
