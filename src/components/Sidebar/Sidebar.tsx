@@ -19,7 +19,7 @@ import { IconType } from "react-icons";
 import { getSidebarPages } from "../../services/config";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import tdrrLogo from "/logo-tdrr.png";
+// logo removed — keep placeholder to avoid missing asset during build
 import { AuthContext, AuthContextType } from "../../hooks/auth";
 
 export function Sidebar({ children }: { children: ReactNode }) {
@@ -90,8 +90,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         w="100%"
         justifyContent="space-between"
       >
-        <Flex maxW="250px"  style={{height: '100%'}}>
-          <img src={tdrrLogo} alt="Logo" />
+        <Flex maxW="250px"  style={{height: '100%'}} align="center">
+          <Box fontWeight="bold">TDRR</Box>
         </Flex>
 
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -195,8 +195,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
-      <Flex height="70%" ml={4}>
-        <img src={tdrrLogo} alt="Logo" />
+      <Flex height="70%" ml={4} align="center">
+        <Box fontWeight="bold">TDRR</Box>
       </Flex>
     </Flex>
   );

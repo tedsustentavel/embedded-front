@@ -34,7 +34,7 @@ export function Wifi() {
   });
 
   async function fetchConfig() {
-    const result = await getConfig();
+  const result = await getConfig('wifi');
 
     return result;
   }
@@ -46,7 +46,7 @@ export function Wifi() {
   return (
     <Form form={form} submit={() => alert(JSON.stringify(form.values))}>
       <Flex align="center" justify="center" gap={16} mb={32}>
-        <Title order={1} align="center">
+  <Title order={1} ta="center">
           Wi-Fi
         </Title>
         <Switch

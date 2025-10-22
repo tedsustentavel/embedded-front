@@ -46,7 +46,7 @@ export function Gsm() {
   });
 
   async function fetchConfig() {
-    const result = await getConfig();
+  const result = await getConfig('gsm');
 
     return result;
   }
@@ -58,7 +58,7 @@ export function Gsm() {
   return (
     <Form form={form} submit={() => alert(JSON.stringify(form.values))}>
       <Flex align="center" justify="center" gap={16} mb={32}>
-        <Title order={1} align="center">
+  <Title order={1} ta="center">
           GSM
         </Title>
         <Switch

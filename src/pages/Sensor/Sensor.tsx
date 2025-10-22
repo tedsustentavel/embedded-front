@@ -39,7 +39,7 @@ export function Sensor() {
   });
 
   async function fetchConfig() {
-    const result = await getConfig();
+  const result = await getConfig('sensor');
 
     return result;
   }
@@ -54,7 +54,7 @@ export function Sensor() {
       form={form}
       submit={() => alert(JSON.stringify(form.values))}
     >
-      <Title order={1} align="center" mb={32}>
+  <Title order={1} ta="center" mb={32}>
         Sensor
       </Title>
 
@@ -82,7 +82,7 @@ export function Sensor() {
             defaultValue={0}
             label="Bias"
             withAsterisk
-            precision={1}
+            
             step={0.1}
             {...form.getInputProps("temperature.bias")}
           />
@@ -91,7 +91,7 @@ export function Sensor() {
             defaultValue={0}
             label="Gain"
             withAsterisk
-            precision={1}
+            
             step={0.1}
             {...form.getInputProps("temperature.gain")}
           />
@@ -125,7 +125,7 @@ export function Sensor() {
             defaultValue={0}
             label="Bias"
             withAsterisk
-            precision={1}
+            
             step={0.1}
             {...form.getInputProps("laser.bias")}
           />
@@ -134,7 +134,7 @@ export function Sensor() {
             defaultValue={0}
             label="Diameter"
             withAsterisk
-            precision={3}
+            
             step={0.001}
             min={0}
             {...form.getInputProps("laser.diameter")}
@@ -145,7 +145,7 @@ export function Sensor() {
             defaultValue={0}
             label="Length"
             withAsterisk
-            precision={3}
+            
             step={0.001}
             min={0}
             {...form.getInputProps("laser.Length")}

@@ -40,7 +40,7 @@ export function Fichario() {
   });
 
   async function fetchConfig() {
-    const result = await getConfig();
+  const result = await getConfig('fichario');
 
     return result;
   }
@@ -56,7 +56,7 @@ export function Fichario() {
       submit={() => alert(JSON.stringify(form.values))}
     >
       <Flex align="center" justify="center" gap={16} mb={32}>
-        <Title order={1} align="center">
+  <Title order={1} ta="center">
           Fichario
         </Title>
         <Switch

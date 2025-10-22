@@ -34,7 +34,7 @@ export function Joker() {
   });
 
   async function fetchConfig() {
-    const result = await getConfig();
+  const result = await getConfig('joker');
 
     return result;
   }
@@ -49,7 +49,7 @@ export function Joker() {
       form={form}
       submit={() => alert(JSON.stringify(form.values))}
     >
-      <Title order={1} align="center" mb={32}>
+  <Title order={1} ta="center" mb={32}>
         Joker
       </Title>
 

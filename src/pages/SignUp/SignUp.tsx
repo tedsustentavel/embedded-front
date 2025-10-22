@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export function SignUp() {
-  const [loading, setLoading] = useState(false);
+  const [loading, _setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -44,7 +44,7 @@ export function SignUp() {
       }}
     >
       <Paper radius="md" m="0 auto" w={500} p="xl" withBorder>
-        <Text size="lg" weight={500} align="center">
+  <Text size="lg" fw={500} ta="center">
           Create a account
         </Text>
 
@@ -96,7 +96,7 @@ export function SignUp() {
             />
           </Stack>
 
-          <Group position="apart" mt="xl">
+          <Group mt="xl" style={{ justifyContent: 'space-between' }}>
             <Link to="/login">
               <Anchor component="button" type="button" color="dimmed" size="xs">
                 Have an account? Login

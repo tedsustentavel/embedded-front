@@ -4,8 +4,7 @@ import validator from "@rjsf/validator-ajv8";
 import Form, { UiSchema } from "@rjsf/chakra-ui";
 import { RJSFSchema } from "@rjsf/utils";
 import { useParams } from "react-router-dom";
-import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, useDisclosure, Spinner, Center } from "@chakra-ui/react";
 import { ConfirmationModal } from "../../components/ConfirmationModal/ConfirmationModal";
 
 export function FormPage() {
@@ -52,7 +51,11 @@ export function FormPage() {
   }
 
   if (loading) {
-    return <LoadingSpinner />;
+    return (
+      <Center style={{ height: '100vh' }}>
+        <Spinner size="xl" />
+      </Center>
+    );
   }
 
   return schema ? (
