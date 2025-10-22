@@ -1,43 +1,20 @@
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-} from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
 import { BrowserRouter } from "react-router-dom";
-import { useState } from "react";
 
 import Router from "./routes/Router";
 
-import AuthProvider from "./hooks/auth";
+import {AuthProvider} from "./hooks/AuthProvider";
 import ScrollToTop from "./routes/ScrollToTop";
+import { ChakraProvider, theme } from "@chakra-ui/react";
 function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
-
   return (
-    <AuthProvider>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          theme={{
-            colorScheme,
-            primaryColor: "green",
-          }}
-          withGlobalStyles
-          withNormalizeCSS
-        >
-          <BrowserRouter>
-            <Notifications />
-            <ScrollToTop />
-            <Router />
-          </BrowserRouter>
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </AuthProvider>
+    <ChakraProvider theme={theme}>
+      <AuthProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Router />
+        </BrowserRouter>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
 

@@ -1,38 +1,54 @@
-import { Button, Group, Modal } from "@mantine/core";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalCloseButton,
+  Button,
+} from "@chakra-ui/react";
 
 interface ConfirmationModalProps {
-  opened: boolean;
-  close: () => void;
-  confirmation: (event?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  isOpen: boolean;
+  loading: boolean;
+  onClose: () => void;
+  confirmation?: any;
 }
 
 export function ConfirmationModal({
-  opened,
-  close,
+  isOpen,
+  onClose,
   confirmation,
+  loading,
 }: ConfirmationModalProps) {
   return (
-    <Modal
-      opened={opened}
-      onClose={close}
-      centered
-      title="Tem certeza que quer salvar essas configurações"
-    >
-      <Group>
-        <Button
-          color="green"
-          onClick={() => {
-            confirmation();
-            close();
-          }}
-        >
-          Sim
-        </Button>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>
+          Tem certeza que deseja salvar essas configurações
+        </ModalHeader>
+        <ModalCloseButton />
 
-        <Button color="red" onClick={close}>
-          Não
-        </Button>
-      </Group>
+        <ModalFooter>
+          <Button
+            colorScheme="green"
+            mr={3}
+            onClick={confirmation}
+            isLoading={loading}
+          >
+            Sim
+          </Button>
+          <Button
+            colorScheme="red"
+            mr={3}
+            onClick={onClose}
+            isDisabled={loading}
+          >
+            Não
+          </Button>
+        </ModalFooter>
+      </ModalContent>
     </Modal>
   );
 }
