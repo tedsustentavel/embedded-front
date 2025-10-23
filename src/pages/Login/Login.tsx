@@ -51,6 +51,11 @@ export function Login() {
     },
   };
 
+  const isHttpsApp = typeof window !== "undefined" && window.location.protocol === "https:";
+  const ipValue = formData.ip?.trim() || "";
+  const isHttpTarget = /^http:\/\//i.test(ipValue) || (!/^https?:\/\//i.test(ipValue) && true); // sem protocolo será tratado como http pela API
+  const isMixedContent = isHttpsApp && isHttpTarget;
+
   return (
     <Flex justify="center" align="center" height="100vh">
       <Card px={12} py={6}>
@@ -61,16 +66,39 @@ export function Login() {
           onChange={(e) => setFormData(e.formData)}
           validator={validator}
           onSubmit={() => {
+            if (isMixedContent) {
+              // bloqueia submit em HTTPS chamando HTTP; sugere abrir direto no dispositivo
+              return;
+            }
             setApiBaseURL(formData.ip);
             signIn(formData.username, formData.password);
           }}
           uiSchema={uiSchema}
         >
+          {isMixedContent && (
+            <div style={{ marginBottom: 12, color: "#b45309" }}>
+              Não é possível conectar de uma página HTTPS para um endereço HTTP (Mixed Content).<br />
+              Para continuar, abra o app direto no dispositivo.
+            </div>
+          )}
           <Button type="submit" isLoading={loading}>
             Login
           </Button>
+          {isMixedContent && (
+            <Button
+              type="button"
+              ml={4}
+              onClick={() => {
+                const target = /^https?:\/\//i.test(ipValue) ? ipValue : `http://${ipValue}`;
+                window.location.href = `${target}/`;
+              }}
+            >
+              Abrir no dispositivo
+            </Button>
+          )}
         </Form>
       </Card>
     </Flex>
   );
 }
+
