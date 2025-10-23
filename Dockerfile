@@ -15,13 +15,13 @@ FROM nginx:1.25-alpine AS runner
 # Copy build output to Nginx html directory
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Nginx config for SPA fallback and basic gzip
+# Nginx config for SPA fallback and basic gzip + health endpoint
 RUN rm -f /etc/nginx/conf.d/default.conf \
-  && printf "server {\n  listen 80;\n  server_name _;\n  root /usr/share/nginx/html;\n  index index.html;\n\n  location / {\n    try_files $uri $uri/ /index.html;\n  }\n\n  gzip on;\n  gzip_types text/plain application/javascript text/css application/json image/svg+xml;\n}\n" > /etc/nginx/conf.d/default.conf
+  && printf "server {\n  listen 80;\n  server_name _;\n  root /usr/share/nginx/html;\n  index index.html;\n\n  # Health endpoint for container checks\n  location = /healthz {\n    access_log off;\n    add_header Content-Type text/plain;\n    return 200 'ok';\n  }\n\n  # App routes (SPA)\n  location / {\n    try_files $uri $uri/ /index.html;\n  }\n\n  gzip on;\n  gzip_types text/plain application/javascript text/css application/json image/svg+xml;\n}\n" > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-# Optional healthcheck
-HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1/ || exit 1
+# Optional healthcheck (use explicit health endpoint to avoid redirects)
+HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1/healthz || exit 1
 
 # Easypanel will run the default nginx start command
